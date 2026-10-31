@@ -1,0 +1,70 @@
+:root {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: #1f2933;
+  background: #f5f7fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: #1e5aa8;
+  text-decoration: none;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: #fff;
+  border-bottom: 1px solid #dde3ea;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #1f4e79;
+}
+
+.nav,
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-actions {
+  margin-left: auto;
+}
+
+.nav a.active {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.auth-page {
+  max-width: 380px;
+  margin: 64px auto;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
+}
+
+.todo {
+  color: #6b7785;
+}

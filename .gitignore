@@ -1,0 +1,21 @@
+# zależności
+node_modules/
+
+# sekrety — tylko lokalnie, nigdy w repozytorium
+.env
+.env.*
+!.env.example
+
+# build
+dist/
+build/
+
+# logi
+*.log
+npm-debug.log*
+
+# system / edytor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
