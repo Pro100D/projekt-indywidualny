@@ -1,7 +1,19 @@
+/* Paleta kolorów HomeVault */
 :root {
+  --plum: #522d60;   /* główny: nagłówek, tytuły, przyciski */
+  --mauve: #80426e;  /* linki, najechanie na przycisk */
+  --peach: #f2a67b;  /* akcenty, aktywna zakładka */
+  --sun: #ffd38b;    /* wyróżnienia, ostrzeżenia (kończąca się gwarancja) */
+
+  --bg: #fff8ec;     /* tło strony — jasny odcień --sun */
+  --surface: #ffffff;
+  --text: #2e1a36;
+  --muted: #7a6a80;
+  --border: #ecdccd;
+
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  color: #1f2933;
-  background: #f5f7fa;
+  color: var(--text);
+  background: var(--bg);
 }
 
 * {
@@ -10,11 +22,23 @@
 
 body {
   margin: 0;
+  background: var(--bg);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--plum);
 }
 
 a {
-  color: #1e5aa8;
+  color: var(--mauve);
   text-decoration: none;
+}
+
+a:hover {
+  color: var(--plum);
+  text-decoration: underline;
 }
 
 .header {
@@ -23,14 +47,14 @@ a {
   align-items: center;
   gap: 16px;
   padding: 12px 24px;
-  background: #fff;
-  border-bottom: 1px solid #dde3ea;
+  background: var(--plum);
+  border-bottom: 4px solid var(--peach);
 }
 
 .logo {
   font-weight: 700;
   font-size: 1.2rem;
-  color: #1f4e79;
+  color: var(--sun);
 }
 
 .nav,
@@ -45,9 +69,29 @@ a {
   margin-left: auto;
 }
 
-.nav a.active {
+.header a {
+  color: #fff;
+  padding: 4px 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.header a:hover {
+  color: var(--sun);
+  text-decoration: none;
+}
+
+.header a.active {
   font-weight: 600;
-  text-decoration: underline;
+  color: var(--peach);
+  border-bottom-color: var(--peach);
+}
+
+.header select {
+  padding: 4px 8px;
+  border: 1px solid var(--mauve);
+  border-radius: 6px;
+  background: var(--mauve);
+  color: #fff;
 }
 
 .main {
@@ -60,11 +104,70 @@ a {
   max-width: 380px;
   margin: 64px auto;
   padding: 24px;
-  background: #fff;
-  border: 1px solid #dde3ea;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 6px solid var(--plum);
   border-radius: 8px;
 }
 
+/* Przyciski i pola formularzy */
+button,
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--plum);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover,
+.btn:hover {
+  background: var(--mauve);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.btn-secondary {
+  background: var(--peach);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background: var(--sun);
+}
+
+input,
+textarea,
+.main select {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--peach);
+  outline-offset: 1px;
+}
+
+/* Baner ostrzegawczy, np. o kończącej się gwarancji */
+.warning {
+  padding: 12px 16px;
+  border-left: 4px solid var(--peach);
+  border-radius: 6px;
+  background: var(--sun);
+  color: var(--text);
+}
+
 .todo {
-  color: #6b7785;
+  color: var(--muted);
 }
