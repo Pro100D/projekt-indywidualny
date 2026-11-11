@@ -1,4 +1,3 @@
-// Funkcja 1: Konto użytkownika
 import { useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext.jsx';
@@ -12,7 +11,6 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [sending, setSending] = useState(false);
 
-  // Po zalogowaniu wracamy na stronę, na którą użytkownik chciał wejść.
   const backTo = location.state?.from?.pathname || '/';
 
   if (user) return <Navigate to={backTo} replace />;

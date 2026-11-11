@@ -1,4 +1,3 @@
-// Pole formularza z etykietą i komunikatem błędu pod spodem.
 export default function FormField({ label, name, error, ...inputProps }) {
   return (
     <label className="field">

@@ -1,4 +1,3 @@
-// Funkcja 1: Konto użytkownika — wspólny stan logowania dla całej aplikacji
 import { createContext, useContext, useEffect, useState } from 'react';
 import { api, getToken, setToken, clearToken } from '../api/client.js';
 
@@ -6,14 +5,13 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  // Na starcie sprawdzamy zapisany token, więc przez chwilę nie wiemy, kto jest zalogowany.
   const [loading, setLoading] = useState(Boolean(getToken()));
 
   useEffect(() => {
     if (!getToken()) return;
     api('/auth/me')
       .then((data) => setUser(data.user))
-      .catch(() => clearToken()) // token wygasł albo jest nieprawidłowy
+      .catch(() => clearToken())
       .finally(() => setLoading(false));
   }, []);
 

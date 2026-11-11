@@ -1,4 +1,3 @@
-// Funkcja 1: Konto użytkownika
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext.jsx';
@@ -16,7 +15,7 @@ export default function RegisterPage() {
 
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setFieldErrors({ ...fieldErrors, [e.target.name]: undefined }); // błąd znika przy poprawianiu
+    setFieldErrors({ ...fieldErrors, [e.target.name]: undefined });
   };
 
   async function onSubmit(e) {
@@ -28,7 +27,6 @@ export default function RegisterPage() {
       await register(form.name, form.email, form.password);
       navigate('/', { replace: true });
     } catch (err) {
-      // Błędy konkretnych pól pokazujemy pod polami, inne — pod formularzem.
       if (Object.keys(err.fields).length) setFieldErrors(err.fields);
       else setError(err.message);
     } finally {

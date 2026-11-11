@@ -1,4 +1,3 @@
-// Funkcja 3: Formularz dodawania i edycji zakupu
 export default function PurchaseFormPage() {
   return (
     <section>

@@ -20,10 +20,8 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Bez logowania
 app.use('/api/auth', authRoutes);
 
-// Wymagają tokenu JWT
 app.use('/api/addresses', requireAuth, addressRoutes);
 app.use('/api/purchases/:id/documents', requireAuth, documentRoutes);
 app.use('/api/purchases', requireAuth, purchaseRoutes);

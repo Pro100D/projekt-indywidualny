@@ -1,4 +1,3 @@
-// Funkcje 4–5: Lista zakupów, filtrowanie i wyszukiwanie
 export default function PurchasesPage() {
   return (
     <section>

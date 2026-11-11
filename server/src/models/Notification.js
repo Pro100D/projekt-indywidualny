@@ -6,7 +6,7 @@ const notificationSchema = new mongoose.Schema(
     purchaseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Purchase', required: true },
     type: { type: String, enum: ['warranty_expiring', 'warranty_expired', 'reminder'], required: true },
     message: { type: String, required: true },
-    daysLeft: Number, // 30, 7, 1 — żeby nie tworzyć tego samego powiadomienia dwa razy
+    daysLeft: Number,
     isRead: { type: Boolean, default: false },
   },
   { timestamps: true },

@@ -30,11 +30,9 @@ export default function Layout() {
           ))}
         </nav>
         <div className="header-actions">
-          {/* TODO (funkcja 2): wybór aktywnego adresu */}
           <select disabled aria-label="Adres">
             <option>Wybierz adres</option>
           </select>
-          {/* TODO (funkcja 8): dzwonek z licznikiem nieprzeczytanych */}
           <NavLink to="/notifications">Powiadomienia</NavLink>
           <span className="user-name">{user.name}</span>
           <button type="button" className="btn-logout" onClick={onLogout}>

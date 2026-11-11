@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-// Metadane pliku — sam plik leży w AWS S3
 const documentSchema = new mongoose.Schema({
   type: { type: String, enum: ['receipt', 'invoice', 'warranty_card', 'photo', 'other'], default: 'other' },
   fileName: { type: String, required: true },

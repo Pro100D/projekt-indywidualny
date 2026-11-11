@@ -1,4 +1,3 @@
-// Funkcja 2: Adresy
 import { Router } from 'express';
 import { notImplemented } from './notImplemented.js';
 

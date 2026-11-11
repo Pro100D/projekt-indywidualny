@@ -1,4 +1,3 @@
-// Funkcja 1: Konto użytkownika
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -16,12 +15,10 @@ function createToken(user) {
   });
 }
 
-// Do frontu wysyłamy tylko te pola — nigdy hash hasła.
 function publicUser(user) {
   return { id: user.id, name: user.name, email: user.email };
 }
 
-// Błąd walidacji: komunikat ogólny + komunikaty dla konkretnych pól formularza.
 function validationError(res, fields) {
   return res.status(400).json({
     error: { code: 'VALIDATION_ERROR', message: 'Popraw zaznaczone pola', fields },
@@ -56,7 +53,6 @@ router.post('/login', async (req, res) => {
   const user = email ? await User.findOne({ email }) : null;
   const ok = user && (await bcrypt.compare(password, user.passwordHash));
 
-  // Ten sam komunikat dla złego e-maila i złego hasła — nie zdradzamy, czy konto istnieje.
   if (!ok) {
     return res.status(401).json({
       error: { code: 'INVALID_CREDENTIALS', message: 'Nieprawidłowy e-mail lub hasło' },
@@ -66,7 +62,6 @@ router.post('/login', async (req, res) => {
   res.json({ token: createToken(user), user: publicUser(user) });
 });
 
-// Dane zalogowanego użytkownika — front pyta o nie po odświeżeniu strony.
 router.get('/me', requireAuth, async (req, res) => {
   const user = await User.findById(req.userId);
   if (!user) {

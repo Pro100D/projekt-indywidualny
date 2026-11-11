@@ -1,4 +1,3 @@
-// Funkcja 8: Powiadomienia
 import { Router } from 'express';
 import { notImplemented } from './notImplemented.js';
 

@@ -1,4 +1,3 @@
-// Strona główna — ostatnie zakupy, kończące się gwarancje, najbliższe przypomnienia
 export default function DashboardPage() {
   return (
     <section>

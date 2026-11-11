@@ -1,11 +1,10 @@
-/* Paleta kolorów HomeVault */
 :root {
-  --plum: #522d60;   /* główny: nagłówek, tytuły, przyciski */
-  --mauve: #80426e;  /* linki, najechanie na przycisk */
-  --peach: #f2a67b;  /* akcenty, aktywna zakładka */
-  --sun: #ffd38b;    /* wyróżnienia, ostrzeżenia (kończąca się gwarancja) */
+  --plum: #522d60;
+  --mauve: #80426e;
+  --peach: #f2a67b;
+  --sun: #ffd38b;
 
-  --bg: #fff8ec;     /* tło strony — jasny odcień --sun */
+  --bg: #fff8ec;
   --surface: #ffffff;
   --text: #2e1a36;
   --muted: #7a6a80;
@@ -136,7 +135,6 @@ a:hover {
   color: var(--muted);
 }
 
-/* Formularze */
 .form {
   display: flex;
   flex-direction: column;
@@ -173,7 +171,6 @@ a:hover {
   color: var(--muted);
 }
 
-/* Przyciski i pola formularzy */
 button,
 .btn {
   padding: 8px 16px;
@@ -222,7 +219,6 @@ select:focus {
   outline-offset: 1px;
 }
 
-/* Baner ostrzegawczy, np. o kończącej się gwarancji */
 .warning {
   padding: 12px 16px;
   border-left: 4px solid var(--peach);

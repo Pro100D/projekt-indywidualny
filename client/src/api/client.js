@@ -4,7 +4,6 @@ export const getToken = () => localStorage.getItem(TOKEN_KEY);
 export const setToken = (token) => localStorage.setItem(TOKEN_KEY, token);
 export const clearToken = () => localStorage.removeItem(TOKEN_KEY);
 
-// Wspólna funkcja do zapytań — dodaje token i zamienia błąd serwera na Error z komunikatem.
 export async function api(path, { method = 'GET', body } = {}) {
   const headers = { 'Content-Type': 'application/json' };
   const token = getToken();
@@ -20,7 +19,7 @@ export async function api(path, { method = 'GET', body } = {}) {
   if (!res.ok) {
     const error = new Error(data?.error?.message || `Błąd ${res.status}`);
     error.status = res.status;
-    error.fields = data?.error?.fields || {}; // komunikaty dla pól formularza
+    error.fields = data?.error?.fields || {};
     throw error;
   }
   return data;

@@ -1,4 +1,3 @@
-// Funkcja 10: Statystyki
 export default function StatsPage() {
   return (
     <section>

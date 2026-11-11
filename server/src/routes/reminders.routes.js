@@ -1,4 +1,3 @@
-// Funkcja 9: Przypomnienia
 import { Router } from 'express';
 import { notImplemented } from './notImplemented.js';
 

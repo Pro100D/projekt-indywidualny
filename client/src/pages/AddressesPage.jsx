@@ -1,4 +1,3 @@
-// Funkcja 2: Adresy
 export default function AddressesPage() {
   return (
     <section>

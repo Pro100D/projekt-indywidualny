@@ -1,4 +1,3 @@
-// Funkcja 8: Powiadomienia
 export default function NotificationsPage() {
   return (
     <section>

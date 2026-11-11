@@ -1,4 +1,3 @@
-// Funkcja 4: Szczegóły zakupu (sekcja Dokumenty: funkcja 6, Przypomnienia: funkcja 9)
 export default function PurchaseDetailsPage() {
   return (
     <section>

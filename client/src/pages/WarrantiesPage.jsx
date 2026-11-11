@@ -1,4 +1,3 @@
-// Funkcja 7: Gwarancje
 export default function WarrantiesPage() {
   return (
     <section>
