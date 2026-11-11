@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
+import RequireAuth from './auth/RequireAuth.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
@@ -18,18 +19,20 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 
-      {/* TODO (funkcja 1): wpuszczać tylko zalogowanych, resztę przekierować na /login */}
-      <Route element={<Layout />}>
-        <Route index element={<DashboardPage />} />
-        <Route path="purchases" element={<PurchasesPage />} />
-        <Route path="purchases/new" element={<PurchaseFormPage />} />
-        <Route path="purchases/:id" element={<PurchaseDetailsPage />} />
-        <Route path="purchases/:id/edit" element={<PurchaseFormPage />} />
-        <Route path="addresses" element={<AddressesPage />} />
-        <Route path="warranties" element={<WarrantiesPage />} />
-        <Route path="notifications" element={<NotificationsPage />} />
-        <Route path="stats" element={<StatsPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+      {/* Strony aplikacji — tylko dla zalogowanych */}
+      <Route element={<RequireAuth />}>
+        <Route element={<Layout />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="purchases" element={<PurchasesPage />} />
+          <Route path="purchases/new" element={<PurchaseFormPage />} />
+          <Route path="purchases/:id" element={<PurchaseDetailsPage />} />
+          <Route path="purchases/:id/edit" element={<PurchaseFormPage />} />
+          <Route path="addresses" element={<AddressesPage />} />
+          <Route path="warranties" element={<WarrantiesPage />} />
+          <Route path="notifications" element={<NotificationsPage />} />
+          <Route path="stats" element={<StatsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Route>
     </Routes>
   );

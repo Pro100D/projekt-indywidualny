@@ -18,7 +18,10 @@ export async function api(path, { method = 'GET', body } = {}) {
 
   const data = res.status === 204 ? null : await res.json().catch(() => null);
   if (!res.ok) {
-    throw new Error(data?.error?.message || `Błąd ${res.status}`);
+    const error = new Error(data?.error?.message || `Błąd ${res.status}`);
+    error.status = res.status;
+    error.fields = data?.error?.fields || {}; // komunikaty dla pól formularza
+    throw error;
   }
   return data;
 }

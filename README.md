@@ -40,15 +40,15 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 
 **Widok:** strony `/login` i `/register` z formularzem, komunikatami błędów pod polami (np. „Nieprawidłowy e-mail lub hasło”) i linkiem między stronami. Po zalogowaniu w nagłówku widać imię użytkownika i przycisk „Wyloguj”.
 
-**Dane:** `POST /api/auth/register`, `POST /api/auth/login` — serwer zwraca token JWT, który front zapisuje w przeglądarce. Kolekcja `users` (e-mail, hash hasła, imię).
+**Dane:** `POST /api/auth/register`, `POST /api/auth/login` — serwer zwraca token JWT, który front zapisuje w przeglądarce. `GET /api/auth/me` — po odświeżeniu strony front sprawdza token i pobiera imię użytkownika. Kolekcja `users` (e-mail, hash hasła, imię).
 
 **Najtrudniejsze:** ochrona stron — niezalogowany użytkownik ma trafić na `/login`; dołączanie tokenu do każdego zapytania.
 
 **Gotowe, gdy:**
-- [ ] można założyć konto i zalogować się, a błędne dane pokazują komunikat pod formularzem,
-- [ ] po odświeżeniu strony użytkownik nadal jest zalogowany,
-- [ ] „Wyloguj” usuwa token i przenosi na `/login`,
-- [ ] wejście na stronę aplikacji bez logowania przekierowuje na `/login`.
+- [x] można założyć konto i zalogować się, a błędne dane pokazują komunikat pod formularzem,
+- [x] po odświeżeniu strony użytkownik nadal jest zalogowany,
+- [x] „Wyloguj” usuwa token i przenosi na `/login`,
+- [x] wejście na stronę aplikacji bez logowania przekierowuje na `/login`.
 
 ### 2. Adresy
 
@@ -236,6 +236,7 @@ server/                 backend — Node.js + Express
 - Sekrety (`JWT_SECRET`, `MONGODB_URI`, klucze AWS) są **tylko** w pliku `server/.env`, który jest w `.gitignore` i nigdy nie trafia do repozytorium.
 - W repozytorium jest tylko `server/.env.example` z pustymi wartościami.
 - Frontend nie zawiera żadnych kluczy — z MongoDB i AWS S3 łączy się wyłącznie serwer.
+- Hasła nie są zapisywane w bazie wprost — zapisywany jest tylko ich hash (bcrypt). Przy błędnym logowaniu serwer zawsze zwraca ten sam komunikat, więc nie da się sprawdzić, czy konto z danym e-mailem istnieje.
 
 ## Uruchomienie
 

@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext.jsx';
 
 const links = [
   { to: '/', label: 'Strona główna', end: true },
@@ -9,6 +10,14 @@ const links = [
 ];
 
 export default function Layout() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  function onLogout() {
+    logout();
+    navigate('/login', { replace: true });
+  }
+
   return (
     <>
       <header className="header">
@@ -27,8 +36,10 @@ export default function Layout() {
           </select>
           {/* TODO (funkcja 8): dzwonek z licznikiem nieprzeczytanych */}
           <NavLink to="/notifications">Powiadomienia</NavLink>
-          {/* TODO (funkcja 1): imię użytkownika i wylogowanie */}
-          <NavLink to="/login">Wyloguj</NavLink>
+          <span className="user-name">{user.name}</span>
+          <button type="button" className="btn-logout" onClick={onLogout}>
+            Wyloguj
+          </button>
         </div>
       </header>
       <main className="main">

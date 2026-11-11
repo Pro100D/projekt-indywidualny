@@ -94,6 +94,23 @@ a:hover {
   color: #fff;
 }
 
+.user-name {
+  color: var(--sun);
+  font-weight: 600;
+}
+
+.header .btn-logout {
+  padding: 4px 12px;
+  border: 1px solid var(--peach);
+  background: transparent;
+  color: var(--peach);
+}
+
+.header .btn-logout:hover {
+  background: var(--peach);
+  color: var(--plum);
+}
+
 .main {
   max-width: 1000px;
   margin: 0 auto;
@@ -108,6 +125,52 @@ a:hover {
   border: 1px solid var(--border);
   border-top: 6px solid var(--plum);
   border-radius: 8px;
+}
+
+.auth-page h1 {
+  margin-top: 0;
+}
+
+.auth-switch {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+/* Formularze */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.field input[aria-invalid='true'] {
+  border-color: #b3261e;
+}
+
+.field-error,
+.form-error {
+  color: #b3261e;
+  font-weight: 400;
+}
+
+.form-error {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #fdeceb;
+}
+
+.loading {
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
 }
 
 /* Przyciski i pola formularzy */
