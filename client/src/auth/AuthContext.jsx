@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { api, getToken, setToken, clearToken } from '../api/client.js';
+import { api, getToken, setToken, clearToken, clearActiveAddressId } from '../api/client.js';
 
 const AuthContext = createContext(null);
 
@@ -17,6 +17,7 @@ export function AuthProvider({ children }) {
 
   function saveSession({ token, user }) {
     setToken(token);
+    clearActiveAddressId();
     setUser(user);
   }
 
@@ -30,6 +31,7 @@ export function AuthProvider({ children }) {
 
   function logout() {
     clearToken();
+    clearActiveAddressId();
     setUser(null);
   }
 

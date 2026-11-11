@@ -1,5 +1,6 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext.jsx';
+import { useAddresses } from '../addresses/AddressContext.jsx';
 
 const links = [
   { to: '/', label: 'Strona główna', end: true },
@@ -11,6 +12,7 @@ const links = [
 
 export default function Layout() {
   const { user, logout } = useAuth();
+  const { addresses, activeAddress, selectAddress, loading } = useAddresses();
   const navigate = useNavigate();
 
   function onLogout() {
@@ -30,9 +32,22 @@ export default function Layout() {
           ))}
         </nav>
         <div className="header-actions">
-          <select disabled aria-label="Adres">
-            <option>Wybierz adres</option>
-          </select>
+          {!loading && addresses.length === 0 ? (
+            <Link to="/addresses" className="add-address-link">+ Dodaj adres</Link>
+          ) : (
+            <select
+              aria-label="Aktywny adres"
+              value={activeAddress?._id || ''}
+              onChange={(e) => selectAddress(e.target.value)}
+              disabled={loading}
+            >
+              {addresses.map((address) => (
+                <option key={address._id} value={address._id}>
+                  {address.label}{address.isDefault ? ' (domyślny)' : ''}
+                </option>
+              ))}
+            </select>
+          )}
           <NavLink to="/notifications">Powiadomienia</NavLink>
           <span className="user-name">{user.name}</span>
           <button type="button" className="btn-logout" onClick={onLogout}>

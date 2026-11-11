@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from './AuthContext.jsx';
+import { AddressProvider } from '../addresses/AddressContext.jsx';
 
 export default function RequireAuth() {
   const { user, loading } = useAuth();
@@ -7,5 +8,9 @@ export default function RequireAuth() {
 
   if (loading) return <p className="loading">Ładowanie…</p>;
   if (!user) return <Navigate to="/login" replace state={{ from: location }} />;
-  return <Outlet />;
+  return (
+    <AddressProvider>
+      <Outlet />
+    </AddressProvider>
+  );
 }
