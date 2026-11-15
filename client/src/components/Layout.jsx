@@ -12,7 +12,14 @@ const links = [
 
 export default function Layout() {
   const { user, logout } = useAuth();
-  const { addresses, activeAddress, selectAddress, loading } = useAddresses();
+  const {
+    addresses,
+    activeAddress,
+    selectAddress,
+    loading,
+    error: addressError,
+    reload: reloadAddresses,
+  } = useAddresses();
   const navigate = useNavigate();
 
   function onLogout() {
@@ -32,7 +39,7 @@ export default function Layout() {
           ))}
         </nav>
         <div className="header-actions">
-          {!loading && addresses.length === 0 ? (
+          {!loading && !addressError && addresses.length === 0 ? (
             <Link to="/addresses" className="add-address-link">+ Dodaj adres</Link>
           ) : (
             <select
@@ -56,7 +63,14 @@ export default function Layout() {
         </div>
       </header>
       <main className="main">
-        <Outlet />
+        {addressError && addresses.length === 0 ? (
+          <div className="form-error load-error">
+            Nie udało się wczytać adresów: {addressError}{' '}
+            <button type="button" className="btn-small" onClick={reloadAddresses}>Spróbuj ponownie</button>
+          </div>
+        ) : (
+          <Outlet />
+        )}
       </main>
     </>
   );

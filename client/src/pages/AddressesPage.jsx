@@ -4,23 +4,9 @@ import { useAddresses } from '../addresses/AddressContext.jsx';
 import AddressFields from '../addresses/AddressFields.jsx';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import Modal from '../components/Modal.jsx';
+import { belongsText, purchasesText } from '../purchases/format.js';
 
 const EMPTY = { label: '', street: '', city: '', isDefault: false };
-
-function isFew(n) {
-  const lastTwo = n % 100;
-  const last = n % 10;
-  return last >= 2 && last <= 4 && (lastTwo < 12 || lastTwo > 14);
-}
-
-function purchasesText(n) {
-  if (n === 1) return '1 zakup';
-  return isFew(n) ? `${n} zakupy` : `${n} zakupów`;
-}
-
-function belongsText(n) {
-  return isFew(n) ? 'należą' : 'należy';
-}
 
 function useFormState(initial) {
   const [values, setValues] = useState(initial);

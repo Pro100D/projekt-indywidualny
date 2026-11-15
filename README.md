@@ -63,7 +63,7 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 **Gotowe, gdy:**
 - [x] można dodać, edytować i usunąć adres (usunięcie z potwierdzeniem),
 - [x] dokładnie jeden adres jest domyślny i to on jest wybrany po zalogowaniu,
-- [ ] zmiana adresu w nagłówku zmienia dane na liście zakupów i na stronie głównej,
+- [x] zmiana adresu w nagłówku zmienia dane na liście zakupów i na stronie głównej,
 - [x] użytkownik bez adresów widzi zachętę „Dodaj pierwszy adres”.
 
 ### 3. Zakupy — formularz dodawania i edycji
@@ -72,15 +72,15 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 
 **Widok:** strony `/purchases/new` i `/purchases/:id/edit` — pola formularza, komunikaty walidacji przy polach, przyciski „Zapisz” i „Anuluj”.
 
-**Dane:** `POST /api/purchases`, `PUT /api/purchases/:id`, `GET /api/purchases/:id` (wczytanie danych do edycji). Kolekcja `purchases`.
+**Dane:** `POST /api/purchases`, `PUT /api/purchases/:id`, `GET /api/purchases/:id` (wczytanie danych do edycji). Kolekcja `purchases`. Wymagane są nazwa, data zakupu, cena i adres. Cenę można wpisać z przecinkiem (np. `1 999,99`). Waluty: PLN, EUR, USD, GBP. Przyciski „1 rok / 2 lata / 3 lata” same wyliczają koniec gwarancji od daty zakupu. Te same reguły sprawdza front (od razu, bez wysyłania) i serwer. Po zapisaniu w nagłówku wybiera się adres zakupu, żeby nowa rzecz była widoczna na liście.
 
 **Najtrudniejsze:** walidacja (wymagane pola, cena większa od 0, koniec gwarancji nie wcześniej niż data zakupu) i jeden komponent formularza dla dodawania i edycji.
 
 **Gotowe, gdy:**
-- [ ] nowy zakup po zapisaniu pojawia się na liście,
-- [ ] edycja otwiera formularz z wypełnionymi danymi, a zmiany widać na liście,
-- [ ] błędne pola są podświetlone z komunikatem i formularz się nie wysyła,
-- [ ] „Anuluj” wraca do listy bez zmian.
+- [x] nowy zakup po zapisaniu pojawia się na liście,
+- [x] edycja otwiera formularz z wypełnionymi danymi, a zmiany widać na liście,
+- [x] błędne pola są podświetlone z komunikatem i formularz się nie wysyła,
+- [x] „Anuluj” wraca do listy bez zmian.
 
 ### 4. Zakupy — lista i szczegóły
 
@@ -88,15 +88,15 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 
 **Widok:** strona `/purchases` — tabela / karty (nazwa, kategoria, data zakupu, cena, status gwarancji); strona `/purchases/:id` — wszystkie dane rzeczy, dokumenty, przyciski „Edytuj” i „Usuń”. Pusta lista pokazuje „Brak zakupów” i przycisk „Dodaj zakup”.
 
-**Dane:** `GET /api/purchases?addressId=...`, `GET /api/purchases/:id`, `DELETE /api/purchases/:id`.
+**Dane:** `GET /api/purchases?addressId=...`, `GET /api/purchases/:id`, `DELETE /api/purchases/:id` (razem z zakupem usuwane są jego przypomnienia i powiadomienia). Status gwarancji liczy front: aktywna, kończy się (30 dni lub mniej), wygasła, brak gwarancji. Strona główna pokazuje 5 ostatnio dodanych zakupów z wybranego adresu.
 
 **Najtrudniejsze:** obsługa stanów (ładowanie, pusta lista, błąd), odświeżenie listy po usunięciu bez przeładowania strony, wygląd na telefonie.
 
 **Gotowe, gdy:**
-- [ ] lista pokazuje tylko zakupy z wybranego adresu,
-- [ ] kliknięcie zakupu otwiera jego szczegóły,
-- [ ] usunięcie wymaga potwierdzenia, a zakup znika z listy bez przeładowania strony,
-- [ ] widoczne są stany: ładowanie, pusta lista i błąd.
+- [x] lista pokazuje tylko zakupy z wybranego adresu,
+- [x] kliknięcie zakupu otwiera jego szczegóły,
+- [x] usunięcie wymaga potwierdzenia, a zakup znika z listy bez przeładowania strony,
+- [x] widoczne są stany: ładowanie, pusta lista i błąd.
 
 ### 5. Zakupy — filtrowanie i wyszukiwanie
 
@@ -104,15 +104,15 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 
 **Widok:** pasek filtrów nad listą zakupów — dwa pola daty, lista kategorii, pole wyszukiwania, przycisk „Wyczyść” i licznik znalezionych rzeczy.
 
-**Dane:** `GET /api/purchases?addressId=&from=&to=&category=&search=&sort=`; filtry zapisane w adresie strony (query string).
+**Dane:** `GET /api/purchases?addressId=&from=&to=&category=&search=&sort=`; filtry zapisane w adresie strony (query string). Wyszukiwarka szuka w nazwie, sklepie i numerze seryjnym, bez względu na wielkość liter. Sortowanie: najnowsze, najstarsze, najdroższe, najtańsze, nazwa A–Z. Odpowiedź zawiera też liczbę wszystkich zakupów adresu i listę kategorii do filtra.
 
 **Najtrudniejsze:** kilka filtrów działających jednocześnie, zachowanie filtrów po odświeżeniu strony, wyszukiwanie dopiero po przerwie w pisaniu (debounce).
 
 **Gotowe, gdy:**
-- [ ] filtr dat pokazuje tylko zakupy z wybranego okresu,
-- [ ] filtr kategorii i wyszukiwarka działają razem z filtrem dat,
-- [ ] po odświeżeniu strony filtry zostają,
-- [ ] „Wyczyść” przywraca pełną listę, a brak wyników pokazuje komunikat.
+- [x] filtr dat pokazuje tylko zakupy z wybranego okresu,
+- [x] filtr kategorii i wyszukiwarka działają razem z filtrem dat,
+- [x] po odświeżeniu strony filtry zostają,
+- [x] „Wyczyść” przywraca pełną listę, a brak wyników pokazuje komunikat.
 
 ### 6. Dokumenty w chmurze
 
@@ -222,7 +222,10 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 ```
 client/                 frontend — React + Vite
   src/api/              wywołania API (fetch + token)
-  src/components/       wspólne komponenty (nagłówek, układ strony)
+  src/auth/             stan logowania, ochrona stron
+  src/addresses/        wybrany adres (wspólny dla całej aplikacji), pola formularza adresu
+  src/purchases/        formatowanie dat i cen, status gwarancji
+  src/components/       wspólne komponenty (nagłówek, pole formularza, okienko modalne)
   src/pages/            ekrany aplikacji (po jednym pliku na ekran)
 server/                 backend — Node.js + Express
   src/config/           połączenie z MongoDB
