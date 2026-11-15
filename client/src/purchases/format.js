@@ -43,12 +43,20 @@ export function formatPrice(price, currency = 'PLN') {
   return new Intl.NumberFormat('pl-PL', { style: 'currency', currency }).format(price);
 }
 
-export function warrantyStatus(warrantyUntil) {
-  if (!warrantyUntil) return { key: 'none', label: 'brak gwarancji' };
+export const EXPIRING_DAYS = 30;
+
+export function daysUntil(day) {
   const today = new Date(`${todayInputDate()}T00:00:00.000Z`).getTime();
-  const days = Math.round((new Date(warrantyUntil).getTime() - today) / DAY);
-  if (days < 0) return { key: 'expired', label: 'gwarancja wygasła', days };
-  if (days === 0) return { key: 'expiring', label: 'gwarancja kończy się dziś', days };
-  if (days <= 30) return { key: 'expiring', label: `gwarancja: zostało ${daysText(days)}`, days };
-  return { key: 'active', label: `gwarancja do ${formatDate(warrantyUntil)}`, days };
+  return Math.round((new Date(day).getTime() - today) / DAY);
+}
+
+export function warrantyStatus(warrantyUntil) {
+  if (!warrantyUntil) return { key: 'none', label: 'brak gwarancji', title: 'Ta rzecz nie ma gwarancji' };
+  const days = daysUntil(warrantyUntil);
+  const title = `Koniec gwarancji: ${formatDate(warrantyUntil)}`;
+  if (days < 0) return { key: 'expired', label: 'wygasła', title, days };
+  if (days === 0) return { key: 'expiring', label: 'kończy się dziś', title, days };
+  if (days === 1) return { key: 'expiring', label: 'kończy się jutro', title, days };
+  if (days <= EXPIRING_DAYS) return { key: 'expiring', label: `kończy się za ${daysText(days)}`, title, days };
+  return { key: 'active', label: `jeszcze ${daysText(days)}`, title, days };
 }

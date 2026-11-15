@@ -136,15 +136,15 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 
 **Widok:** kolorowy znacznik na liście i w szczegółach zakupu: zielony „jeszcze N dni”, żółty „kończy się za N dni” (30 dni lub mniej), czerwony „wygasła”, szary „brak gwarancji”. Strona `/warranties` z zakładkami: aktywne / kończące się / wygasłe.
 
-**Dane:** pole `purchases.warrantyUntil`; liczba dni liczona na froncie; `GET /api/warranties?status=...`.
+**Dane:** pole `purchases.warrantyUntil`; liczba dni liczona na froncie; `GET /api/warranties?status=active|expiring|expired&addressId=&today=`. Serwer zwraca rzeczy z wybranej grupy (kończące się — od najbliższego końca, wygasłe — od ostatnio wygasłej) i liczby rzeczy w każdej grupie do zakładek. „Dzisiaj” wysyła przeglądarka (`today=RRRR-MM-DD`), bo serwer działa w innej strefie czasowej niż użytkownik. Kończąca się gwarancja to taka, która kończy się dziś albo w ciągu 30 dni. Na stronie można przełączyć widok na wszystkie adresy, a pasek przy każdej rzeczy pokazuje, jaka część okresu gwarancji już minęła.
 
 **Najtrudniejsze:** poprawne liczenie dni (strefa czasowa, „dzisiaj”), jeden wspólny komponent znacznika używany w kilku miejscach.
 
 **Gotowe, gdy:**
-- [ ] każdy zakup z datą gwarancji ma znacznik z poprawną liczbą dni i kolorem,
-- [ ] zakup bez daty gwarancji ma szary znacznik,
-- [ ] strona `/warranties` dzieli rzeczy na trzy grupy,
-- [ ] po zmianie daty gwarancji w edycji znacznik od razu się zmienia.
+- [x] każdy zakup z datą gwarancji ma znacznik z poprawną liczbą dni i kolorem,
+- [x] zakup bez daty gwarancji ma szary znacznik,
+- [x] strona `/warranties` dzieli rzeczy na trzy grupy,
+- [x] po zmianie daty gwarancji w edycji znacznik od razu się zmienia.
 
 ### 8. Powiadomienia
 

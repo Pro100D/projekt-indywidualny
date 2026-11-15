@@ -765,3 +765,152 @@ textarea {
     grid-template-columns: 120px minmax(0, 1fr);
   }
 }
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+}
+
+.tabs .tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: -2px;
+  padding: 10px 16px;
+  border-bottom: 3px solid transparent;
+  border-radius: 6px 6px 0 0;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.tabs .tab:hover {
+  background: #f6eef8;
+  color: var(--plum);
+}
+
+.tabs .tab.is-active {
+  border-bottom-color: var(--plum);
+  color: var(--plum);
+}
+
+.tab-count {
+  min-width: 24px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: #f1ecf3;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.tab-active .tab-count {
+  background: #eaf6ec;
+  color: #1e6b34;
+}
+
+.tab-expiring .tab-count {
+  background: var(--sun);
+  color: #7a3e00;
+}
+
+.tab-expired .tab-count {
+  background: #fdeceb;
+  color: #b3261e;
+}
+
+.warranty-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: opacity 0.15s;
+}
+
+.warranty-list.is-refreshing {
+  opacity: 0.55;
+}
+
+.warranty-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 4px solid var(--border);
+}
+
+.warranty-item-active {
+  border-left-color: #3f9b5a;
+}
+
+.warranty-item-expiring {
+  border-left-color: var(--peach);
+}
+
+.warranty-item-expired {
+  border-left-color: #b3261e;
+}
+
+.warranty-item-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.warranty-progress {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #f1ecf3;
+}
+
+.warranty-progress span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #3f9b5a;
+}
+
+.warranty-item-expiring .warranty-progress span {
+  background: var(--peach);
+}
+
+.warranty-item-expired .warranty-progress span {
+  background: #b3261e;
+}
+
+.warranty-dates {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.warranty-dates strong {
+  color: var(--text);
+}
+
+.warranty-item .purchase-name {
+  white-space: normal;
+}
+
+@media (max-width: 480px) {
+  .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .tabs .tab {
+    flex: 1 0 auto;
+    gap: 5px;
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
