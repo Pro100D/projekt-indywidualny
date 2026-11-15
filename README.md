@@ -54,7 +54,7 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 
 **Co robi użytkownik:** dodaje, edytuje i usuwa swoje adresy, ustawia jeden jako domyślny i przełącza aktywny adres w nagłówku aplikacji.
 
-**Widok:** strona `/addresses` — lista kart (nazwa, ulica, miasto, liczba zakupów, oznaczenie „domyślny”), formularz dodawania / edycji, przycisk „Usuń”, który otwiera okienko z potwierdzeniem. Jeśli do adresu należą zakupy, okienko ostrzega, że zostaną usunięte razem z adresem. W nagłówku aplikacji lista rozwijana z wyborem adresu.
+**Widok:** strona `/addresses` — lista kart (nazwa, ulica, miasto, liczba zakupów, oznaczenie „domyślny”), formularz dodawania nad listą, przycisk „Edytuj”, który otwiera okienko z formularzem edycji, oraz przycisk „Usuń”, który otwiera okienko z potwierdzeniem. Jeśli do adresu należą zakupy, okienko ostrzega, że zostaną usunięte razem z adresem. W nagłówku aplikacji lista rozwijana z wyborem adresu.
 
 **Dane:** `GET/POST /api/addresses`, `PUT/DELETE /api/addresses/:id`. Kolekcja `addresses` (nazwa, ulica, miasto, domyślny). Pierwszy dodany adres automatycznie staje się domyślnym, a po usunięciu adresu domyślnego jego miejsce zajmuje najstarszy z pozostałych. Lista adresów zawiera liczbę zakupów przy każdym adresie. Adres z zakupami można usunąć tylko razem z nimi (`DELETE /api/addresses/:id?withPurchases=true`) — usuwane są wtedy także przypomnienia i powiadomienia tych zakupów; bez tego parametru serwer odpowiada kodem 409. Wybrany adres jest zapamiętany w przeglądarce, a po zalogowaniu zawsze wybierany jest adres domyślny.
 

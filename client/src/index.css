@@ -395,12 +395,17 @@ select:focus {
   font-size: 1.2rem;
 }
 
-.dialog-title.is-danger {
+.dialog.is-danger {
+  border-top-color: #b3261e;
+}
+
+.dialog.is-danger .dialog-title {
   color: #b3261e;
 }
 
-.dialog:has(.is-danger) {
-  border-top-color: #b3261e;
+.dialog .form-actions {
+  justify-content: flex-end;
+  margin-top: 6px;
 }
 
 .dialog-content p {
@@ -435,3 +440,4 @@ select:focus {
   color: var(--sun);
   border-bottom: 1px dashed var(--sun);
 }
+
