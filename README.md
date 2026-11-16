@@ -184,15 +184,15 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 
 **Widok:** strona `/stats` — kafelki (suma wydatków, liczba rzeczy, kończące się gwarancje), wykres podziału na kategorie, wybór okresu.
 
-**Dane:** `GET /api/stats/summary?addressId=&from=&to=` — suma, liczba rzeczy, podział na kategorie.
+**Dane:** `GET /api/stats/summary?addressId=&from=&to=&today=` — suma, liczba rzeczy, podział na kategorie i liczba gwarancji kończących się w ciągu 30 dni. Serwer liczy to w MongoDB (`aggregate` z `$group`), osobno dla każdej waluty; rzeczy bez kategorii trafiają do grupy „Bez kategorii”. Okresy do wyboru: ten miesiąc, ostatnie 3 miesiące, ten rok (domyślnie), poprzedni rok, cały czas albo własny okres od–do; wybór jest zapisany w adresie strony. Wykres to poziome paski posortowane od największej kwoty, bez dodatkowej biblioteki — po najechaniu (albo zaznaczeniu klawiaturą) widać kwotę, liczbę rzeczy i udział w procentach, a pod wykresem można go otworzyć jako tabelę. Gdy zakupy są w kilku walutach, nad wykresem jest przełącznik waluty — kwot w różnych walutach nie sumujemy, bo nie znamy kursu. Kafelek z gwarancjami pokazuje stan na dziś (nie zależy od okresu) i prowadzi do strony `/warranties`.
 
-**Najtrudniejsze:** wykres (np. biblioteka Recharts) i różne waluty — sumy osobno dla każdej waluty.
+**Najtrudniejsze:** wykres i różne waluty — sumy osobno dla każdej waluty. Kolor pasków (`--mauve`) sprawdziłem skryptem do kontroli kolorów wykresów: ma wystarczający kontrast z tłem i nie jest za ciemny ani za blady (`--plum` był zbyt ciemny).
 
 **Gotowe, gdy:**
-- [ ] kafelki pokazują poprawną sumę i liczbę rzeczy dla wybranego adresu i okresu,
-- [ ] wykres pokazuje podział wydatków na kategorie,
-- [ ] zmiana adresu lub okresu odświeża dane,
-- [ ] przy braku zakupów widać komunikat zamiast pustego wykresu.
+- [x] kafelki pokazują poprawną sumę i liczbę rzeczy dla wybranego adresu i okresu,
+- [x] wykres pokazuje podział wydatków na kategorie,
+- [x] zmiana adresu lub okresu odświeża dane,
+- [x] przy braku zakupów widać komunikat zamiast pustego wykresu.
 
 ## Architektura
 
@@ -226,6 +226,8 @@ client/                 frontend — React + Vite
   src/addresses/        wybrany adres (wspólny dla całej aplikacji), pola formularza adresu
   src/purchases/        formatowanie dat i cen, status gwarancji
   src/notifications/    licznik nieprzeczytanych powiadomień i dzwonek w nagłówku
+  src/reminders/        przypomnienia: wiersz listy, pola formularza, sekcja w szczegółach zakupu
+  src/stats/            wykres wydatków według kategorii
   src/components/       wspólne komponenty (nagłówek, pole formularza, okienko modalne)
   src/pages/            ekrany aplikacji (po jednym pliku na ekran)
 server/                 backend — Node.js + Express

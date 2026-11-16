@@ -38,9 +38,9 @@ export function formatDate(value) {
   return new Date(value).toLocaleDateString('pl-PL', { timeZone: 'UTC', day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-export function formatPrice(price, currency = 'PLN') {
+export function formatPrice(price, currency) {
   if (price == null) return '—';
-  return new Intl.NumberFormat('pl-PL', { style: 'currency', currency }).format(price);
+  return new Intl.NumberFormat('pl-PL', { style: 'currency', currency: currency || 'PLN' }).format(price);
 }
 
 export const EXPIRING_DAYS = 30;

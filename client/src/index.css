@@ -1241,3 +1241,253 @@ textarea {
     grid-column: 1 / -1;
   }
 }
+
+.is-refreshing {
+  opacity: 0.55;
+  transition: opacity 0.15s;
+}
+
+.period-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.period-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.chip:hover {
+  border-color: var(--mauve);
+  background: #f6eef8;
+}
+
+.chip.is-active {
+  border-color: var(--plum);
+  background: var(--plum);
+  color: #fff;
+}
+
+.period-custom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.stat-value {
+  color: var(--plum);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.stat-extra {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+a.stat-tile-link {
+  color: inherit;
+}
+
+a.stat-tile-link:hover {
+  border-color: var(--peach);
+  color: inherit;
+  text-decoration: none;
+}
+
+.chart-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.chart-note,
+.chart-sub {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.category-chart {
+  position: relative;
+  margin-top: 16px;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: minmax(90px, 160px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  outline: none;
+}
+
+.bar-row.is-hover,
+.bar-row:focus-visible {
+  background: #f6eef8;
+}
+
+.bar-row:focus-visible {
+  box-shadow: 0 0 0 2px var(--peach);
+}
+
+.bar-label {
+  overflow: hidden;
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bar-track {
+  display: block;
+  height: 20px;
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  background: var(--mauve);
+}
+
+.bar-value {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.chart-tooltip {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgba(46, 26, 54, 0.18);
+  color: var(--text);
+  font-size: 0.85rem;
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% - 6px));
+  white-space: nowrap;
+}
+
+.chart-tooltip strong {
+  color: var(--plum);
+}
+
+.chart-table {
+  margin-top: 14px;
+}
+
+.chart-table summary {
+  color: var(--mauve);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chart-table table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.chart-table th,
+.chart-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-table th:first-child {
+  text-align: left;
+}
+
+.chart-table thead th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.chart-table tfoot th,
+.chart-table tfoot td {
+  border-bottom: none;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .bar-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 12px;
+  }
+
+  .bar-track {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    height: 14px;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .stat-tiles {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-tiles > :first-child {
+    grid-column: 1 / -1;
+  }
+}
