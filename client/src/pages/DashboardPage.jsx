@@ -4,7 +4,7 @@ import { api } from '../api/client.js';
 import { useAuth } from '../auth/AuthContext.jsx';
 import { useAddresses } from '../addresses/AddressContext.jsx';
 import WarrantyBadge from '../purchases/WarrantyBadge.jsx';
-import { formatDate, formatPrice, purchasesText } from '../purchases/format.js';
+import { formatDate, formatPrice, purchasesText, todayInputDate } from '../purchases/format.js';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -12,7 +12,20 @@ export default function DashboardPage() {
   const [recent, setRecent] = useState({ purchases: [], total: 0 });
   const [status, setStatus] = useState('loading');
 
+  const [expiring, setExpiring] = useState(0);
+
   const addressId = activeAddress?._id;
+
+  useEffect(() => {
+    if (!addressId) return undefined;
+    let ignore = false;
+    api(`/warranties?status=expiring&addressId=${addressId}&today=${todayInputDate()}`)
+      .then((data) => !ignore && setExpiring(data.counts.expiring))
+      .catch(() => !ignore && setExpiring(0));
+    return () => {
+      ignore = true;
+    };
+  }, [addressId]);
 
   useEffect(() => {
     if (!addressId) return undefined;
@@ -50,6 +63,13 @@ export default function DashboardPage() {
             </p>
             <Link to="/purchases/new" className="btn">+ Dodaj zakup</Link>
           </div>
+
+          {expiring > 0 && (
+            <Link to="/warranties" className="warning dashboard-banner">
+              <strong>{expiring === 1 ? '1 rzecz' : `${expiring} rzeczy`} z kończącą się gwarancją</strong>
+              <span>w ciągu 30 dni · Zobacz →</span>
+            </Link>
+          )}
 
           <div className="card">
             <h2>Ostatnio dodane</h2>

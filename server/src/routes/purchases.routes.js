@@ -4,6 +4,7 @@ import Purchase from '../models/Purchase.js';
 import Address from '../models/Address.js';
 import Reminder from '../models/Reminder.js';
 import Notification from '../models/Notification.js';
+import { forgetOldWarranty, runWarrantyCheck } from '../jobs/warrantyNotifications.js';
 
 const router = Router();
 
@@ -138,6 +139,7 @@ router.post('/', async (req, res) => {
   if (Object.keys(fields).length) return validationError(res, fields);
 
   const purchase = await Purchase.create({ ...data, userId: req.userId });
+  await runWarrantyCheck({ userId: req.userId });
   res.status(201).json({ purchase: await withAddress(purchase) });
 });
 
@@ -156,6 +158,8 @@ router.put('/:id', async (req, res) => {
 
   Object.assign(purchase, data);
   await purchase.save();
+  await forgetOldWarranty(purchase);
+  await runWarrantyCheck({ userId: req.userId });
   res.json({ purchase: await withAddress(purchase) });
 });
 

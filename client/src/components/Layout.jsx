@@ -1,6 +1,7 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext.jsx';
 import { useAddresses } from '../addresses/AddressContext.jsx';
+import Bell from '../notifications/Bell.jsx';
 
 const links = [
   { to: '/', label: 'Strona główna', end: true },
@@ -55,7 +56,7 @@ export default function Layout() {
               ))}
             </select>
           )}
-          <NavLink to="/notifications">Powiadomienia</NavLink>
+          <Bell />
           <span className="user-name">{user.name}</span>
           <button type="button" className="btn-logout" onClick={onLogout}>
             Wyloguj

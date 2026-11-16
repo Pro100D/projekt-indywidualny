@@ -152,15 +152,15 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 
 **Widok:** ikona dzwonka z licznikiem w nagłówku, strona `/notifications` z listą, baner na stronie głównej „X rzeczy z kończącą się gwarancją”.
 
-**Dane:** `GET /api/notifications`, `PUT /api/notifications/:id`, `PUT /api/notifications/read-all`. Kolekcja `notifications` — serwer raz dziennie tworzy powiadomienia 30, 7 i 1 dzień przed końcem gwarancji oraz po jej wygaśnięciu.
+**Dane:** `GET /api/notifications`, `PUT /api/notifications/:id`, `PUT /api/notifications/read-all`. Kolekcja `notifications` — serwer raz dziennie (i zaraz po starcie) tworzy powiadomienia 30, 7 i 1 dzień przed końcem gwarancji oraz po jej wygaśnięciu. Dodatkowo sprawdza gwarancje danego użytkownika po zapisaniu zakupu i przy pobieraniu powiadomień (`GET /api/notifications/unread-count`), więc powiadomienie pojawia się od razu, nawet jeśli serwer był wyłączony o zwykłej porze. Jeśli rzecz trafi do aplikacji już po progu (np. 5 dni przed końcem), powstaje tylko powiadomienie dla najbliższego progu. Powiadomienie o wygaśnięciu powstaje tylko dla gwarancji, które wygasły najwyżej 7 dni temu. Po zmianie daty gwarancji stare powiadomienia tej rzeczy są usuwane. Licznik na dzwonku odświeża się przy każdej zmianie strony, po powrocie do karty przeglądarki i co minutę. Baner na stronie głównej liczy rzeczy z wybranego adresu, które kończą się w ciągu 30 dni.
 
-**Najtrudniejsze:** odświeżanie licznika bez przeładowania strony i brak powtarzających się powiadomień.
+**Najtrudniejsze:** odświeżanie licznika bez przeładowania strony i brak powtarzających się powiadomień — każde powiadomienie o gwarancji ma w bazie unikalny klucz (zakup + próg + data końca gwarancji), więc nawet kilka sprawdzeń tego samego dnia nie tworzy duplikatów.
 
 **Gotowe, gdy:**
-- [ ] licznik na dzwonku pokazuje liczbę nieprzeczytanych powiadomień,
-- [ ] kliknięcie powiadomienia otwiera szczegóły rzeczy i oznacza je jako przeczytane,
-- [ ] „Oznacz wszystkie jako przeczytane” zeruje licznik,
-- [ ] dla rzeczy z gwarancją kończącą się za 30, 7 i 1 dzień pojawia się dokładnie jedno powiadomienie na każdy próg.
+- [x] licznik na dzwonku pokazuje liczbę nieprzeczytanych powiadomień,
+- [x] kliknięcie powiadomienia otwiera szczegóły rzeczy i oznacza je jako przeczytane,
+- [x] „Oznacz wszystkie jako przeczytane” zeruje licznik,
+- [x] dla rzeczy z gwarancją kończącą się za 30, 7 i 1 dzień pojawia się dokładnie jedno powiadomienie na każdy próg.
 
 ### 9. Przypomnienia
 
@@ -225,10 +225,12 @@ client/                 frontend — React + Vite
   src/auth/             stan logowania, ochrona stron
   src/addresses/        wybrany adres (wspólny dla całej aplikacji), pola formularza adresu
   src/purchases/        formatowanie dat i cen, status gwarancji
+  src/notifications/    licznik nieprzeczytanych powiadomień i dzwonek w nagłówku
   src/components/       wspólne komponenty (nagłówek, pole formularza, okienko modalne)
   src/pages/            ekrany aplikacji (po jednym pliku na ekran)
 server/                 backend — Node.js + Express
   src/config/           połączenie z MongoDB
+  src/jobs/             codzienne sprawdzanie gwarancji i tworzenie powiadomień
   src/middleware/       sprawdzanie tokenu JWT, obsługa błędów
   src/models/           modele Mongoose (User, Address, Purchase, Notification, Reminder)
   src/routes/           endpointy API (po jednym pliku na moduł)

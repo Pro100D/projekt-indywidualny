@@ -7,9 +7,17 @@ const notificationSchema = new mongoose.Schema(
     type: { type: String, enum: ['warranty_expiring', 'warranty_expired', 'reminder'], required: true },
     message: { type: String, required: true },
     daysLeft: Number,
+    threshold: Number,
+    warrantyUntil: Date,
     isRead: { type: Boolean, default: false },
   },
   { timestamps: true },
 );
+
+notificationSchema.index(
+  { purchaseId: 1, threshold: 1, warrantyUntil: 1 },
+  { unique: true, partialFilterExpression: { threshold: { $exists: true } } },
+);
+notificationSchema.index({ userId: 1, isRead: 1, createdAt: -1 });
 
 export default mongoose.model('Notification', notificationSchema);

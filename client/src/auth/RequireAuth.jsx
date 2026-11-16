@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from './AuthContext.jsx';
 import { AddressProvider } from '../addresses/AddressContext.jsx';
+import { NotificationProvider } from '../notifications/NotificationContext.jsx';
 
 export default function RequireAuth() {
   const { user, loading } = useAuth();
@@ -10,7 +11,9 @@ export default function RequireAuth() {
   if (!user) return <Navigate to="/login" replace state={{ from: location }} />;
   return (
     <AddressProvider>
-      <Outlet />
+      <NotificationProvider>
+        <Outlet />
+      </NotificationProvider>
     </AddressProvider>
   );
 }
