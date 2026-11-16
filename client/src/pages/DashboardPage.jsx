@@ -4,7 +4,62 @@ import { api } from '../api/client.js';
 import { useAuth } from '../auth/AuthContext.jsx';
 import { useAddresses } from '../addresses/AddressContext.jsx';
 import WarrantyBadge from '../purchases/WarrantyBadge.jsx';
+import ReminderRow from '../reminders/ReminderRow.jsx';
+import { useNotifications } from '../notifications/NotificationContext.jsx';
 import { formatDate, formatPrice, purchasesText, todayInputDate } from '../purchases/format.js';
+
+const UPCOMING_LIMIT = 5;
+
+function UpcomingReminders({ addressId }) {
+  const { refreshCount } = useNotifications();
+  const [reminders, setReminders] = useState([]);
+  const [status, setStatus] = useState('loading');
+  const [busyId, setBusyId] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  useEffect(() => {
+    let ignore = false;
+    api(`/reminders?addressId=${addressId}&status=upcoming&limit=${UPCOMING_LIMIT}`)
+      .then((data) => {
+        if (ignore) return;
+        setReminders(data.reminders);
+        setStatus('ready');
+      })
+      .catch(() => !ignore && setStatus('error'));
+    return () => {
+      ignore = true;
+    };
+  }, [addressId, reloadKey]);
+
+  async function markDone(reminder) {
+    setBusyId(reminder._id);
+    try {
+      await api(`/reminders/${reminder._id}`, { method: 'PUT', body: { isDone: !reminder.isDone } });
+      setReloadKey((k) => k + 1);
+      refreshCount();
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  return (
+    <div className="card">
+      <h2>Najbliższe przypomnienia</h2>
+      {status === 'loading' && <p className="loading">Ładowanie…</p>}
+      {status === 'error' && <p className="form-error">Nie udało się wczytać przypomnień.</p>}
+      {status === 'ready' && reminders.length === 0 && (
+        <p className="details-notes">Brak zaplanowanych przypomnień. Dodasz je w szczegółach zakupu.</p>
+      )}
+      {status === 'ready' && reminders.length > 0 && (
+        <ul className="reminder-list">
+          {reminders.map((r) => (
+            <ReminderRow key={r._id} reminder={r} busy={busyId === r._id} onToggle={markDone} showPurchase />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -71,31 +126,35 @@ export default function DashboardPage() {
             </Link>
           )}
 
-          <div className="card">
-            <h2>Ostatnio dodane</h2>
-            {status === 'loading' && <p className="loading">Ładowanie…</p>}
-            {status === 'error' && <p className="form-error">Nie udało się wczytać zakupów.</p>}
-            {status === 'ready' && recent.purchases.length === 0 && (
-              <p className="details-notes">Pod tym adresem nie ma jeszcze zakupów.</p>
-            )}
-            {status === 'ready' && recent.purchases.length > 0 && (
-              <>
-                <ul className="recent-list">
-                  {recent.purchases.map((p) => (
-                    <li key={p._id}>
-                      <Link to={`/purchases/${p._id}`} className="recent-item">
-                        <span>
-                          <strong>{p.name}</strong>
-                          <small>{formatDate(p.purchaseDate)} · {formatPrice(p.price, p.currency)}</small>
-                        </span>
-                        <WarrantyBadge warrantyUntil={p.warrantyUntil} />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/purchases">Zobacz wszystkie zakupy →</Link>
-              </>
-            )}
+          <div className="dashboard-grid">
+            <UpcomingReminders addressId={addressId} />
+
+            <div className="card">
+              <h2>Ostatnio dodane</h2>
+              {status === 'loading' && <p className="loading">Ładowanie…</p>}
+              {status === 'error' && <p className="form-error">Nie udało się wczytać zakupów.</p>}
+              {status === 'ready' && recent.purchases.length === 0 && (
+                <p className="details-notes">Pod tym adresem nie ma jeszcze zakupów.</p>
+              )}
+              {status === 'ready' && recent.purchases.length > 0 && (
+                <>
+                  <ul className="recent-list">
+                    {recent.purchases.map((p) => (
+                      <li key={p._id}>
+                        <Link to={`/purchases/${p._id}`} className="recent-item">
+                          <span>
+                            <strong>{p.name}</strong>
+                            <small>{formatDate(p.purchaseDate)} · {formatPrice(p.price, p.currency)}</small>
+                          </span>
+                          <WarrantyBadge warrantyUntil={p.warrantyUntil} />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/purchases">Zobacz wszystkie zakupy →</Link>
+                </>
+              )}
+            </div>
           </div>
         </>
       )}

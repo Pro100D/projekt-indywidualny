@@ -88,13 +88,3 @@ export async function forgetOldWarranty(purchase) {
     warrantyUntil: { $ne: purchase.warrantyUntil || null },
   });
 }
-
-export function startWarrantyScheduler() {
-  const run = () =>
-    runWarrantyCheck()
-      .then((created) => console.log(`Sprawdzanie gwarancji: nowe powiadomienia: ${created}`))
-      .catch((err) => console.error('Błąd sprawdzania gwarancji:', err.message));
-
-  run();
-  return setInterval(run, DAY);
-}

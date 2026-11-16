@@ -1082,3 +1082,162 @@ textarea {
     align-self: flex-start;
   }
 }
+
+.notification-other .notification-dot {
+  background: var(--mauve);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.reminders {
+  margin-top: 16px;
+}
+
+.reminders h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--plum);
+}
+
+.reminder-list {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reminder {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  border-left: 4px solid transparent;
+}
+
+.reminder:last-child {
+  border-bottom: none;
+}
+
+.reminder-overdue {
+  border-left-color: #b3261e;
+  background: #fdeceb;
+}
+
+.reminder-today {
+  border-left-color: var(--peach);
+  background: #fff3df;
+}
+
+.reminder-soon {
+  border-left-color: var(--sun);
+}
+
+.reminder-check input {
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--plum);
+  cursor: pointer;
+}
+
+.reminder-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.reminder-title {
+  color: var(--plum);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.reminder-done .reminder-title {
+  color: var(--muted);
+  font-weight: 400;
+  text-decoration: line-through;
+}
+
+.reminder-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.reminder-type {
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #f1ecf3;
+  color: var(--mauve);
+  font-weight: 600;
+}
+
+.reminder-overdue .reminder-due {
+  color: #b3261e;
+  font-weight: 700;
+}
+
+.reminder-today .reminder-due {
+  color: #7a3e00;
+  font-weight: 700;
+}
+
+.reminder-actions {
+  display: flex;
+  flex: none;
+  gap: 6px;
+}
+
+.reminders-done {
+  margin-top: 12px;
+}
+
+.reminders-done summary {
+  color: var(--mauve);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reminder-add {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.reminder-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.dialog .reminder-fields {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 600px) {
+  .reminder {
+    flex-wrap: wrap;
+  }
+
+  .reminder-actions {
+    width: 100%;
+    padding-left: 32px;
+  }
+
+  .reminder-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .reminder-fields > :first-child {
+    grid-column: 1 / -1;
+  }
+}

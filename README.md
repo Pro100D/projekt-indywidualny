@@ -168,15 +168,15 @@ JavaScript, React (Vite, React Router), Node.js + Express, MongoDB Atlas, AWS S3
 
 **Widok:** sekcja „Przypomnienia” w szczegółach zakupu (lista + krótki formularz: tytuł, typ, data); lista najbliższych przypomnień na stronie głównej.
 
-**Dane:** `GET/POST /api/reminders`, `PUT/DELETE /api/reminders/:id`. Kolekcja `reminders` (zakup, typ, tytuł, termin, wykonane).
+**Dane:** `GET/POST /api/reminders`, `PUT/DELETE /api/reminders/:id`. Kolekcja `reminders` (zakup, typ, tytuł, termin, wykonane). Lista przyjmuje `?purchaseId=` (szczegóły zakupu) albo `?addressId=&status=upcoming&limit=5` (strona główna — tylko niewykonane z wybranego adresu, od najwcześniejszego terminu). Typy: serwis, wymiana filtra, ubezpieczenie, inne. Kolory: czerwony — po terminie, pomarańczowy — dziś, żółty — w ciągu 7 dni. Wykonane przypomnienia są zwinięte pod listą. Edycja odbywa się w okienku. Dzień przed terminem i po jego minięciu (do 7 dni) serwer tworzy powiadomienie, które trafia do dzwonka; po oznaczeniu przypomnienia jako wykonane jego powiadomienie jest oznaczane jako przeczytane, a po zmianie terminu albo usunięciu przypomnienia stare powiadomienie znika.
 
 **Najtrudniejsze:** sortowanie po terminie, wyróżnienie przeterminowanych, powiązanie z powiadomieniami.
 
 **Gotowe, gdy:**
-- [ ] można dodać przypomnienie do rzeczy i widać je w jej szczegółach,
-- [ ] najbliższe przypomnienia widać na stronie głównej, posortowane po dacie,
-- [ ] przypomnienie można oznaczyć jako wykonane, edytować i usunąć,
-- [ ] przeterminowane przypomnienia są wyróżnione kolorem.
+- [x] można dodać przypomnienie do rzeczy i widać je w jej szczegółach,
+- [x] najbliższe przypomnienia widać na stronie głównej, posortowane po dacie,
+- [x] przypomnienie można oznaczyć jako wykonane, edytować i usunąć,
+- [x] przeterminowane przypomnienia są wyróżnione kolorem.
 
 ### 10. Statystyki
 

@@ -5,6 +5,7 @@ import { useAddresses } from '../addresses/AddressContext.jsx';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import useFlash from '../components/useFlash.js';
 import WarrantyBadge from '../purchases/WarrantyBadge.jsx';
+import ReminderSection from '../reminders/ReminderSection.jsx';
 import { formatDate, formatPrice } from '../purchases/format.js';
 
 export default function PurchaseDetailsPage() {
@@ -122,6 +123,8 @@ export default function PurchaseDetailsPage() {
           </div>
         </div>
       </div>
+
+      <ReminderSection purchaseId={id} />
 
       <ConfirmDialog
         open={confirmOpen}

@@ -9,9 +9,16 @@ const notificationSchema = new mongoose.Schema(
     daysLeft: Number,
     threshold: Number,
     warrantyUntil: Date,
+    reminderId: { type: mongoose.Schema.Types.ObjectId, ref: 'Reminder' },
+    dueDate: Date,
     isRead: { type: Boolean, default: false },
   },
   { timestamps: true },
+);
+
+notificationSchema.index(
+  { reminderId: 1, dueDate: 1 },
+  { unique: true, partialFilterExpression: { reminderId: { $exists: true } } },
 );
 
 notificationSchema.index(

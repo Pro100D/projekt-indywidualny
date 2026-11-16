@@ -3,12 +3,13 @@ import mongoose from 'mongoose';
 import Notification from '../models/Notification.js';
 import Purchase from '../models/Purchase.js';
 import Address from '../models/Address.js';
-import { parseDay, runWarrantyCheck, todayUtc } from '../jobs/warrantyNotifications.js';
+import { parseDay, todayUtc } from '../jobs/warrantyNotifications.js';
+import { runAllChecks } from '../jobs/scheduler.js';
 
 const router = Router();
 
 async function refresh(req) {
-  await runWarrantyCheck({ userId: req.userId, today: parseDay(req.query.today) || todayUtc() });
+  await runAllChecks({ userId: req.userId, today: parseDay(req.query.today) || todayUtc() });
 }
 
 function unreadCount(userId) {
